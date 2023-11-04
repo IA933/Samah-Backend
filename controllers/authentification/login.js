@@ -1,8 +1,6 @@
-module.exports = (req, res, next) => {
+module.exports = async (req, res, next) => {
   const user = req.user;
-
-  delete user.hash;
-  delete user.salt;
-
+  user.hash = undefined
+  user.salt = undefined
   res.status(200).json(user);
 }

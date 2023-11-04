@@ -11,6 +11,7 @@ const cors = require('cors')
 const morgan = require('morgan')
 
 const AuthRouter = require('./routes/AuthRouter')
+const CommunityRouter = require('./routes/communityRouter')
 
 const ErrorHandler = require('./controllers/errorHandler')
 
@@ -48,9 +49,10 @@ server.use(passport.initialize());
 server.use(passport.session());
 
 server.use("/auth", AuthRouter);
+server.use('/community', CommunityRouter);
 
 
-server.use("/", (req, res, next) => {
+server.get("/", (req, res, next) => {
   res.send('welcome to SAMAH API');
 })
 

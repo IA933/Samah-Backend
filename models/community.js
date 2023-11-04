@@ -1,4 +1,4 @@
-const {Schema, model, Model} = require('mongoose')
+const {Schema, model} = require('mongoose')
 
 const CommunityModel = new Schema({
   name: {

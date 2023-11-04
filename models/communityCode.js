@@ -2,7 +2,7 @@
  * THIS MODEL IS USED TO CREATE JOINING CODE FOR COMMUNITIES
  */
 
-const { Schema, module } = require('mongoose');
+const { Schema, model } = require('mongoose');
 
 const CommunityCode = new Schema({
   community: {
@@ -19,7 +19,12 @@ const CommunityCode = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'User',
     required: true
-  }
+  },
+  members: [{
+    type: Schema.Types.ObjectId,
+    ref: "Member",
+    required: true
+  }]
 }, {
   timestamps: true
 })

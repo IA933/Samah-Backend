@@ -1,8 +1,10 @@
 const User = require('../../models/user')
-const {genPassword} = require('../../utils/passwordUtils')
+const { genPassword } = require('../../utils/passwordUtils')
 
 
 module.exports = async (req, res) => {
+  // console.log(req.body);
+
   const {
     username,
     firstname,
@@ -11,29 +13,25 @@ module.exports = async (req, res) => {
     phone_number,
     email,
     status,
-    password
+    password,
+    blood
   } = req.body
 
-  console.log(req.body);
-  const {salt, hash} = genPassword(password, username)
+  const { salt, hash } = genPassword(password, username)
 
   const newUser = new User({
-     username: username,
-     firstname: firstname,
-     lastname: lastname,
-     age: age,
-     phone_number: phone_number,
-     email: email,
-     salt: salt,
-     hash: hash,
-     status: status
+    username: username,
+    firstname: firstname,
+    lastname: lastname,
+    age: age,
+    blood: blood,
+    phone_number: phone_number,
+    email: email,
+    salt: salt,
+    hash: hash,
+    status: status
   });
-
-  newUser.save()
-  .then(() => res.sendStatus(200))
-  .catch(err => {
-    console.log(err)
-    // throw ReqError()
-    res.sendStatus(500)
-  })
+  
+  await newUser.save()
+  await res.sendStatus(200)
 }

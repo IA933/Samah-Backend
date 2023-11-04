@@ -3,7 +3,7 @@ const { Schema, model } = require('mongoose')
 const UserModel = new Schema({
   username: {
     type: String,
-    unique: true, 
+    unique: true,
     required: true
   },
   firstname: {
@@ -44,6 +44,11 @@ const UserModel = new Schema({
     type: String,
     required: false
   },
+  blood: {
+    type: String,
+    enum: ['A+', 'B+', 'O+', 'AB+', 'A-', 'B-', 'O-', 'AB-'],
+    required: true
+  },
   thumb: {
     type: String,
     required: false
@@ -52,7 +57,12 @@ const UserModel = new Schema({
     type: String,
     enum: ['UNKNOWN', "ALIVE", "INJURED", "DEAD"],
     default: "ALIVE"
-  }
+  },
+  communities: [{
+    type: Schema.Types.ObjectId,
+    ref: "Community",
+    required: true
+  }]
 }, {
   timestamps: true
 })
