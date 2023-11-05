@@ -1,15 +1,12 @@
-const { Router } = require('express')
-const passport = require('passport')
+const { Router } = require('express');
+const passport = require('passport');
 
 const functionCapsule = require('../utils/functionCapsule');
-
-const Register = require('../controllers/authentification/register')
-const Login = require('../controllers/authentification/login')
+const authentificationController = require('../controllers/authentificationController');
 
 const AuthRouter = Router();
 
-AuthRouter.post('/register', functionCapsule(Register));
-
-AuthRouter.post('/login', passport.authenticate('local'), functionCapsule(Login))
+AuthRouter.post('/register', functionCapsule(authentificationController.Register));
+AuthRouter.post('/login', passport.authenticate('local'), functionCapsule(authentificationController.Login));
 
 module.exports = AuthRouter

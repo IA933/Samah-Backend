@@ -1,15 +1,14 @@
-const User = require('../../models/user')
-const { genPassword } = require('../../utils/passwordUtils')
+const User = require('../models/user')
+const { genPassword } = require('../utils/passwordUtils')
 
-
-module.exports = async (req, res) => {
+const Register = async (req, res) => {
   // console.log(req.body);
 
   const {
     username,
     firstname,
     lastname,
-    age,
+    dob,
     phone_number,
     email,
     status,
@@ -23,7 +22,7 @@ module.exports = async (req, res) => {
     username: username,
     firstname: firstname,
     lastname: lastname,
-    age: age,
+    dob: dob,
     blood: blood,
     phone_number: phone_number,
     email: email,
@@ -35,3 +34,12 @@ module.exports = async (req, res) => {
   await newUser.save()
   await res.sendStatus(200)
 }
+
+const Login = async (req, res, next) => {
+  const user = req.user;
+  user.hash = undefined
+  user.salt = undefined
+  res.status(200).json(user);
+}
+
+module.exports = {Login, Register}

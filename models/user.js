@@ -14,8 +14,8 @@ const UserModel = new Schema({
     type: String,
     required: false
   },
-  age: {
-    type: Number,
+  dob: {
+    type: Date,
     required: true
   },
   address: {
@@ -40,14 +40,21 @@ const UserModel = new Schema({
     type: String,
     required: true
   },
-  face_id: {
-    type: String,
-    required: false
+  is_faceID_registred: {
+    type: Boolean,
+    default: false
   },
   blood: {
     type: String,
     enum: ['A+', 'B+', 'O+', 'AB+', 'A-', 'B-', 'O-', 'AB-'],
     required: true
+  },
+  chronic_dis: {
+    type: String,
+    default: null
+  },
+  other_info: {
+    type: String
   },
   thumb: {
     type: String,

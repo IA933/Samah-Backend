@@ -12,13 +12,14 @@ const morgan = require('morgan')
 
 const AuthRouter = require('./routes/AuthRouter')
 const CommunityRouter = require('./routes/communityRouter')
+const ClientRouter = require('./routes/ClientRouter')
 
 const ErrorHandler = require('./controllers/errorHandler')
 
 const server = express()
 
 server.use(express.json());
-server.use(express.urlencoded({extended: false}));
+server.use(express.urlencoded({ extended: false }));
 
 server.use(morgan("dev"))
 server.use(cors({
@@ -50,7 +51,7 @@ server.use(passport.session());
 
 server.use("/auth", AuthRouter);
 server.use('/community', CommunityRouter);
-
+server.use('/client', ClientRouter);
 
 server.get("/", (req, res, next) => {
   res.send('welcome to SAMAH API');
@@ -58,4 +59,4 @@ server.get("/", (req, res, next) => {
 
 server.use(ErrorHandler)
 
-module.exports = {server, mongoose}
+module.exports = { server, mongoose }

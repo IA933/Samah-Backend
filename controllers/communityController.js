@@ -136,18 +136,19 @@ const leaveCommunity = async (req, res, next) => {
   const { communityID } = req.params; // community id
   const userId = req.user.id;
 
-  const memberToRemove = await Member.findOne({ user: userId, community: communityID });
+  const memberToRemove = await Member.findOne({ user: userId, community: communityID }).populate('community');
 
 
   if (!memberToRemove)
     return res.sendStatus(403)
-  await Community.findByIdAndUpdate(memberToRemove.community, {
+  await Community.findByIdAndUpdate(memberToRemove.community._id, {
     $pull: { members: memberToRemove._id }
   })
 
   await memberToRemove.deleteOne();
 
   await User.findByIdAndUpdate(userId, { $pull: { communities: memberToRemove.id } });
+  console.log(memberToRemove);
   res.status(200).json({ message: `Left ${memberToRemove.community.name}` });
 }
 
